@@ -1,0 +1,130 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Ad {
+  id: String!
+  campaigned: String!
+  title: String!
+  content: String!
+  type: String!
+  status: String!
+}
+
+type User {
+  id: String!
+  name: String!
+  email: String!
+  joinedCampaigns: [Campaign!]!
+}
+
+type Partner {
+  id: String!
+  name: String!
+  contactInfo: String!
+  campaigns: [String!]!
+}
+
+type Campaign {
+  id: String!
+  name: String!
+  description: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  status: String!
+  ads: [Ad!]!
+  partners: [Partner!]!
+  users: [User!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Ticket {
+  user: String!
+  campaign: String!
+  createdAt: DateTime!
+  expirationDate: DateTime!
+  status: String!
+}
+
+type Query {
+  Campaigns: [Campaign!]!
+  Campaign(id: String!): Campaign!
+  Ads: [Ad!]!
+  ad(id: String!): [Ad!]!
+  Users: [User!]!
+  User(id: String!): User!
+  Partners: [Partner!]!
+  Partner(id: String!): Partner!
+  Tickets: [Ticket!]!
+  Ticket(id: String!): [Ticket!]!
+}
+
+type Mutation {
+  createCampaign(createCampaignInput: CreateCampaignInput!): Campaign!
+  updateCampaign(id: String!, updateCampaignInput: CreateCampaignInput!): Campaign!
+  removeCampaign(id: String!): Boolean!
+  CreateAd(input: CreateAdInput!): Ad!
+  createUser(data: CreateUserDto!): User!
+  updateUser(id: String!, data: UpdateUserDto!): User!
+  deleteUser(id: String!): Boolean!
+  SendNotification(FcmToken: String!, Title: String!, Body: String!): String!
+  Register(data: RegisterDto!): String!
+  Login(data: LoginDto!): String!
+  updatePartner(id: String!, UpdatePartnerInput: CreatePartnerInput!): Partner!
+  CreatePartner(input: CreatePartnerInput!): Partner!
+  CreateTicket(input: CreateTicketInput!): Ticket!
+  updateTicket(id: String!, updateTicketInput: CreateTicketInput!): Ticket!
+}
+
+input CreateCampaignInput {
+  name: String!
+  description: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  status: String!
+  login: String!
+}
+
+input CreateAdInput {
+  title: String!
+  content: String!
+  type: String!
+  status: String!
+  campaignId: String!
+}
+
+input CreateUserDto {
+  name: String!
+  email: String!
+  role: String = "user"
+}
+
+input UpdateUserDto {
+  l: String!
+}
+
+input RegisterDto {
+  name: String!
+  email: String!
+}
+
+input LoginDto {
+  email: String!
+  password: String!
+}
+
+input CreatePartnerInput {
+  name: String!
+  contactInfo: String!
+  campaignIds: [String!]!
+}
+
+input CreateTicketInput {
+  userId: String!
+  campaignId: String!
+  expirationDate: String!
+}
